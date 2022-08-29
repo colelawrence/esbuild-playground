@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "test": "node build.mjs"
+  },
+  "dependencies": {
+    "esbuild": "^0.15.5"
+  }
+}
