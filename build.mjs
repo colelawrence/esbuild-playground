@@ -62,7 +62,13 @@ function n(b) {
 function h(b) {
   return b["_prop"]
 }
-`
+`;
+minify`
+class Requirements<TName extends string = string> {
+  // @ts-ignore
+  _name: TName
+}
+`;
 
 function minify(template, ...args) {
   const ANSI_RESET = "\u001b[0m";
@@ -73,7 +79,12 @@ function minify(template, ...args) {
   console.log(ANSI_RESET + giveMeAColor("🫥") + "____".repeat(8));
   console.log(giveMeAColor("🧐") + src);
   console.log(
-    giveMeAColor("🔔") + esbuild.transformSync(src, { minifySyntax: true, loader: "ts", mangleProps: /^_/ }).code
+    giveMeAColor("🔔") +
+      esbuild.transformSync(src, {
+        minifySyntax: true,
+        loader: "ts",
+        mangleProps: /^_/,
+      }).code
   );
 }
 
