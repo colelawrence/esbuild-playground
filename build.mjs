@@ -1,17 +1,21 @@
 import esbuild from "esbuild";
 
 minify(function a() {
+  // const eval function toString()
   const a = 1 | 2 | 4;
   return a;
 });
 
 minify`
+// empty breaks
 e:break e;
 `;
 minify`
+// const eval
 const a = 1 | 2 | 4
 `;
 minify`
+// enum replace and const eval
 namespace Permissions {
   export const pmt = "pmt";
   export enum PaymentFlags {
@@ -48,6 +52,7 @@ namespace Permissions {
 }
 `;
 minify`
+// mangling _prop
 const a = {
   trop: 1,
   _prop: 1,
@@ -64,10 +69,20 @@ function h(b) {
 }
 `;
 minify`
+// unassigned names
 class Requirements<TName extends string = string> {
   // @ts-ignore
   _name: TName
 }
+`;
+minify`
+// mangling props
+fn({
+  _HELLO: 1,
+  _GOODBYE: 1,
+})
+
+r._GOODBYE
 `;
 
 function minify(template, ...args) {
@@ -80,11 +95,11 @@ function minify(template, ...args) {
   console.log(giveMeAColor("🧐") + src);
   console.log(
     giveMeAColor("🔔") +
-      esbuild.transformSync(src, {
+      (esbuild.transformSync(src, {
         minifySyntax: true,
         loader: "ts",
         mangleProps: /^_/,
-      }).code
+      }).code || "∅")
   );
 }
 

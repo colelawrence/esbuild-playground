@@ -4,6 +4,6 @@
     "test": "node build.mjs"
   },
   "dependencies": {
-    "esbuild": "^0.15.5"
+    "esbuild": "^0.15.6"
   }
 }
