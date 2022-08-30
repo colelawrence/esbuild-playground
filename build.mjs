@@ -85,6 +85,13 @@ fn({
 r._GOODBYE
 `;
 
+minify`
+// immediate invocation
+const a = function () {
+  return 1
+}();
+`;
+
 function minify(template, ...args) {
   const ANSI_RESET = "\u001b[0m";
   const src =
